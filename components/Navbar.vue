@@ -48,8 +48,8 @@ const menu = [
     ],
   },
   {
-    name: "About",
-    path: "/about",
+    name: "About Us",
+    path: "/about-us",
   },
   {
     name: "Contact",

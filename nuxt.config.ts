@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   // General
   app: {
-    baseURL: process.env.NODE_ENV === "development" ? "/" : "/projectm/",
+    baseURL: "/",
     buildAssetsDir: "assets",
     rootId: "app",
   },
