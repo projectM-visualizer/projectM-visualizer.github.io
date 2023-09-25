@@ -2,7 +2,7 @@
   <Html>
     <Body>
       <NuxtLayout>
-        <NuxtPage/>
+        <NuxtPage />
       </NuxtLayout>
     </Body>
   </Html>
@@ -11,9 +11,7 @@
 <script setup lang="ts">
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk
-      ? `${titleChunk} | ProjectM`
-      : `ProjectM`;
+    return titleChunk ? `${titleChunk} | ProjectM` : "ProjectM";
   },
   link: [
     { rel: "icon", href: "/favicon.ico", sizes: "any" },
