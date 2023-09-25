@@ -8,6 +8,7 @@ dist
 
 # Node dependencies
 node_modules
+pnpm-lock.yaml
 
 # Logs
 logs
@@ -22,3 +23,6 @@ logs
 .env
 .env.*
 !.env.example
+
+# Private
+private
