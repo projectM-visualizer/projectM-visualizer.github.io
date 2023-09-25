@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar rounded-md bg-base-300">
+  <div class="navbar bg-base-300">
     <div class="navbar-start">
       <NavbarMobileMenu :icon="mobileMenu.icon" :menu="mobileMenu.menu" />
       <Logo />

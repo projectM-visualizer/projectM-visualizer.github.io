@@ -1,10 +1,9 @@
 <template>
   <footer
-    class="footer items-center p-2 rounded-md bg-neutral text-neutral-content"
+    class="footer flex items-center justify-center sm:justify-between p-4 bg-neutral text-neutral-content"
   >
     <aside class="items-center grid-flow-col">
-      <Logo />
-      <p>Copyright © 2023 - All right reserved</p>
+      <p>Copyright © 2023 | ProjectM | All right reserved</p>
     </aside>
     <FooterSocialMedia />
   </footer>

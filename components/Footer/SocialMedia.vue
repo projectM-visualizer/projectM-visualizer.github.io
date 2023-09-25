@@ -1,5 +1,7 @@
 <template>
-  <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+  <nav
+    class="grid-flow-col gap-4 md:place-self-center md:justify-self-end hidden sm:grid"
+  >
     <NuxtLink v-for="(item, index) in props.menu" :key="index" :to="item.link">
       <Icon :name="item.icon" class="w-7 h-7" :class="item.iconClass" />
     </NuxtLink>
