@@ -11,7 +11,16 @@ export default defineNuxtConfig({
     payloadExtraction: false,
   },
   modules: [
+    // https://nuxt.com/modules/icon
+    "nuxt-icon",
+
+    // https://nuxt.com/modules/image
+    "@nuxt/image",
+
+    // https://nuxt.com/modules/content
     // "@nuxt/content"
+
+    // https://nuxt.com/modules/tailwindcss
     "@nuxtjs/tailwindcss",
   ],
   router: {
@@ -52,6 +61,17 @@ export default defineNuxtConfig({
   //         },
   //       ],
   //     ],
+  //   },
+  // },
+  // image: {
+  //   screens: {
+  //     xs: 320,
+  //     sm: 640,
+  //     md: 768,
+  //     lg: 1024,
+  //     xl: 1280,
+  //     xxl: 1536,
+  //     "2xl": 1920,
   //   },
   // },
   tailwindcss: {
