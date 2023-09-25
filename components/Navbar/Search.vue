@@ -3,14 +3,14 @@
     <input
       type="text"
       :placeholder="props.placeholder"
-      class="input input-bordered w-24 md:w-auto"
+      class="input input-bordered h-10 rounded-full md:w-auto"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 interface Props {
-  placeholder: string;
+  placeholder?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {

@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 interface Props {
-  menu: {
+  menu?: {
     label: string;
     icon: string;
     iconClass: string;

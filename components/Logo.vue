@@ -2,7 +2,7 @@
   <div class="flex-1">
     <NuxtLink
       :to="props.link"
-      class="btn btn-ghost normal-case text-xl overflow-hidden"
+      class="normal-case text-xl font-bold overflow-hidden"
     >
       <NuxtImg
         v-if="props.src"
