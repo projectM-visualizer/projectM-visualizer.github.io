@@ -1,0 +1,1 @@
+import{X as p,Y as i,Z as o,s as a}from"./entry.8653274e.js";const e=p({app:{name:"projectm-visualizer-organization-app",version:"0.0.1",description:"",url:""}}),s={},t=i(e,s);function r(){const n=a();return n._appConfig||(n._appConfig=o(t)),n._appConfig}export{r as u};
