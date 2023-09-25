@@ -2,7 +2,7 @@
   <div class="navbar rounded-md bg-base-300">
     <div class="navbar-start">
       <NavbarMobileMenu :icon="mobileMenu.icon" :menu="mobileMenu.menu" />
-      <NavbarLogo :src="logo.src" :alt="logo.alt" :link="logo.link" />
+      <Logo />
     </div>
 
     <div class="navbar-center hidden lg:flex">
@@ -26,18 +26,12 @@
     </div>
 
     <div class="navbar-end">
-      <NavbarSearch :placeholder="search.placeholder" />
+      <NavbarSearch />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const logo = {
-  src: "",
-  alt: "ProjectM",
-  link: "/",
-};
-
 const menu = [
   {
     name: "Home",
@@ -66,9 +60,5 @@ const menu = [
 const mobileMenu = {
   icon: "heroicons-solid:menu-alt-1",
   menu,
-};
-
-const search = {
-  placeholder: "Search...",
 };
 </script>

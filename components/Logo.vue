@@ -22,5 +22,9 @@ interface Props {
   link?: string;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  src: "",
+  alt: "ProjectM",
+  link: "/",
+});
 </script>
