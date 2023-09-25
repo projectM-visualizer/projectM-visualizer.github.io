@@ -1,4 +1,4 @@
-import { promises as fs, existsSync } from "fs";
+import { promises as fs, existsSync, readdirSync, statSync } from "fs";
 import path from "path";
 import * as dotenv from "dotenv";
 import AdmZip from "adm-zip";
@@ -77,8 +77,8 @@ async function getPublishedRepos() {
 console.log("Published Repos: ", await getPublishedRepos());
 
 // Create directory if doesnt exist.
-async function createDirectory(dirPath: string) {
-  if (existsSync(dirPath)) {
+async function createDirectory(dirPath: string, rm: boolean = false) {
+  if (existsSync(dirPath) && rm) {
     await fs.rm(dirPath, { recursive: true });
   }
 
@@ -92,7 +92,7 @@ async function downloadRepos() {
   await Promise.all(
     repos.map(async (repo) => {
       const targetDir = path.join(repositoryDir, repo!.name);
-      await createDirectory(targetDir);
+      await createDirectory(targetDir, true);
 
       const { data } = await octokit.rest.repos.downloadZipballArchive({
         owner: organization,
@@ -136,40 +136,65 @@ async function downloadRepos() {
 
 downloadRepos();
 
-// Move files from ./.repositories/{repo-name}/content/* to ./content/*
-// Move files from ./.repositories/{repo-name}/pages/* to ./pages/*
+// Move directory recursively
+async function moveDirectory(source: string, target: string) {
+  await createDirectory(target);
+
+  const items = readdirSync(source);
+
+  for (const item of items) {
+    const sourcePath = path.join(source, item);
+    const targetPath = path.join(target, item);
+    const stats = statSync(sourcePath);
+
+    if (stats.isDirectory()) {
+      await moveDirectory(sourcePath, targetPath);
+      // await fs.rm(sourcePath, { recursive: true });
+    } else {
+      await fs.rename(sourcePath, targetPath);
+    }
+  }
+}
+
+// Integrate repos/docs into content and pages directories
 async function integrateRepos() {
-  const repos = await getPublishedRepos();
+  const sourceDir = path.join(".", ".repositories");
 
-  await Promise.all(
-    repos.map(async (repo) => {
-      const contentDir = path.join(repositoryDir, repo!.name, "content");
-      const pagesDir = path.join(repositoryDir, repo!.name, "pages");
+  try {
+    // Get a list of repositories
+    const repos = await fs.readdir(sourceDir);
 
-      const contentFiles = await fs.readdir(contentDir);
-      const pagesFiles = await fs.readdir(pagesDir);
+    // Iterate through each repository
+    for (const repo of repos) {
+      const targetContentDir = path.join(".", "content", repo);
+      const targetPagesDir = path.join(".", "pages", repo);
 
-      await Promise.all(
-        contentFiles.map(async (file) => {
-          await fs.rename(
-            path.join(contentDir, file),
-            path.join("./content", file),
-          );
-        }),
-      );
+      await createDirectory(targetContentDir, true);
+      await createDirectory(targetPagesDir, true);
 
-      await Promise.all(
-        pagesFiles.map(async (file) => {
-          await fs.rename(
-            path.join(pagesDir, file),
-            path.join("./pages", file),
-          );
-        }),
-      );
+      const contentSource = path.join(sourceDir, repo, "content");
+      const pagesSource = path.join(sourceDir, repo, "pages");
 
-      console.log(`Repository "${repo!.name}" integrated`);
-    }),
-  );
+      // Move content directory
+      if (await existsSync(contentSource)) {
+        await moveDirectory(contentSource, targetContentDir);
+      }
+
+      // Move pages directory
+      if (await existsSync(pagesSource)) {
+        await moveDirectory(pagesSource, targetPagesDir);
+      }
+
+      // Create .gitignore file in content directory, and write the repo name to it
+      const contentGitignorePath = path.join(".", "content", ".gitignore");
+      await fs.writeFile(contentGitignorePath, repo);
+
+      const pagesGitignorePath = path.join(".", "pages", ".gitignore");
+      await fs.writeFile(pagesGitignorePath, repo);
+    }
+  } catch (error) {
+    console.error(`Error integrating repositories: ${error}`);
+  }
 }
 
 integrateRepos();
