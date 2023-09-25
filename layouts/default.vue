@@ -1,15 +1,13 @@
 <template>
-  <div
-    class="min-h-screen w-full flex flex-col items-center gap-1 sm:gap-2 lg:gap-4"
-  >
+  <div class="min-h-screen w-full flex flex-col items-center">
     <Navbar />
 
-    <div class="flex flex-grow">
+    <div class="flex flex-grow self-stretch">
       <slot />
     </div>
 
     <Footer />
-    <Footer2 />
+    <!-- <Footer2 /> -->
   </div>
 </template>
 

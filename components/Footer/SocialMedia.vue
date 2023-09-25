@@ -21,22 +21,22 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   menu: () => [
     {
+      label: "Github",
+      icon: "bxl:github",
+      iconClass: "hover:text-secondary",
+      link: "https://github.com/projectM-visualizer",
+    },
+    {
       label: "Discord",
-      icon: "logos:discord-icon",
-      iconClass: "",
+      icon: "bxl:discord-alt",
+      iconClass: "hover:text-secondary",
       link: "https://discord.gg/7fQXN43n9W",
     },
     {
       label: "Twitter",
-      icon: "devicon:twitter",
-      iconClass: "",
+      icon: "bxl:twitter",
+      iconClass: "hover:text-secondary",
       link: "https://twitter.com/projectMViz",
-    },
-    {
-      label: "Github",
-      icon: "devicon:github",
-      iconClass: "text-white",
-      link: "https://github.com/projectM-visualizer",
     },
   ],
 });
