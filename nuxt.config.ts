@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   },
   modules: [
     // "@nuxt/content"
+    "@nuxtjs/tailwindcss",
   ],
   router: {
     options: {
@@ -27,6 +28,11 @@ export default defineNuxtConfig({
 
   // Modules
   devtools: { enabled: process.env.NODE_ENV === "development" },
+  colorMode: {
+    preference: "system", // default theme
+    dataValue: "theme", // activate data-theme in <html> tag
+    classSuffix: "",
+  },
   // content: {
   //   // Configuring code highlighting
   //   // https://content.nuxtjs.org/api/configuration
@@ -48,4 +54,8 @@ export default defineNuxtConfig({
   //     ],
   //   },
   // },
+  tailwindcss: {
+    cssPath: "~/assets/css/tailwind.css",
+    injectPosition: "last",
+  },
 });
