@@ -1,0 +1,27 @@
+{
+  // Editor
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.tslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "javascript.format.enable": false,
+  "window.zoomLevel": 0,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+
+  // Extension: Indent Rainbow
+  "indentRainbow.colors": [
+    "rgba(255, 210, 0, 0.08)",
+    "rgba(255, 0, 247, 0.08)",
+    "rgba(0, 215, 255, 0.08)"
+    // "rgba(199, 255, 0, 0.08)"
+  ]
+}

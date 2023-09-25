@@ -1,0 +1,28 @@
+{
+  "recommendations": [
+    "GitHub.copilot",
+    "johnsoncodehk.volar",
+    "Vue.vscode-typescript-vue-plugin",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "dbaeumer.vscode-eslint",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "deque-systems.vscode-axe-linter",
+    "wix.vscode-import-cost",
+    "streetsidesoftware.code-spell-checker",
+    "humao.rest-client",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "mikestead.dotenv",
+    "PKief.material-icon-theme",
+    "yzhang.markdown-all-in-one",
+    "aaron-bond.better-comments",
+    "oderwat.indent-rainbow",
+    "EditorConfig.EditorConfig",
+    "Prisma.prisma",
+    "netcorext.uuid-generator",
+    "bradlc.vscode-tailwindcss",
+    "ankitcode.firefly"
+  ]
+}
