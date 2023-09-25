@@ -1,1 +1,0 @@
-import{R as p,S as i,T as o,b as a}from"./entry.2d1656cb.js";const e=p({app:{name:"projectm-visualizer-organization-app",version:"0.0.1",description:"",url:""}}),s={},t=i(e,s);function r(){const n=a();return n._appConfig||(n._appConfig=o(t)),n._appConfig}export{r as u};
