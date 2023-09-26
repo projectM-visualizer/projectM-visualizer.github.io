@@ -43,7 +43,7 @@ const menu = [
     submenu: [
       {
         name: "ProjectM",
-        path: "/projectm",
+        path: "/projects/projectm",
       },
     ],
   },

@@ -2,14 +2,14 @@
   <div class="w-full max-w-xs mr-4">
     <ul class="menu menu-xs bg-neutral rounded-lg shadow-md w-full p-4">
       <li v-for="(item, index) in menu" :key="index">
-        <NuxtLink :to="getUrl() + item.to">
+        <NuxtLink :to="getProjectMUrl() + item.to">
           <Icon :name="item.icon" class="w-4 h-4" :class="item.iconClass" />
           {{ item.label }}
         </NuxtLink>
 
         <ul v-if="item.links">
           <li v-for="(subItem, subIndex) in item.links" :key="subIndex">
-            <NuxtLink :to="getUrl() + subItem.to">
+            <NuxtLink :to="getProjectMUrl() + subItem.to">
               <Icon
                 :name="subItem.icon"
                 class="w-4 h-4"

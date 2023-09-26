@@ -169,8 +169,8 @@ async function integrateRepos() {
     // Iterate through each repository
     for (const repo of repos) {
       const targetGeneratedDir = path.join(".", "generated", repo);
-      const targetContentDir = path.join(".", "content", repo);
-      const targetPagesDir = path.join(".", "pages", repo);
+      const targetContentDir = path.join(".", "content", "projects", repo);
+      const targetPagesDir = path.join(".", "pages", "projects", repo);
 
       await createDirectory(targetGeneratedDir, true);
       await createDirectory(targetContentDir, true);
@@ -199,10 +199,20 @@ async function integrateRepos() {
       const generatedGitignorePath = path.join(".", "generated", ".gitignore");
       await fs.writeFile(generatedGitignorePath, repo);
 
-      const contentGitignorePath = path.join(".", "content", ".gitignore");
+      const contentGitignorePath = path.join(
+        ".",
+        "content",
+        "projects",
+        ".gitignore",
+      );
       await fs.writeFile(contentGitignorePath, repo);
 
-      const pagesGitignorePath = path.join(".", "pages", ".gitignore");
+      const pagesGitignorePath = path.join(
+        ".",
+        "pages",
+        "projects",
+        ".gitignore",
+      );
       await fs.writeFile(pagesGitignorePath, repo);
 
       console.log(`Repository "${repo}" integrated`);
