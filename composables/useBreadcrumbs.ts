@@ -38,6 +38,10 @@ export const useBreadcrumbs = () => {
     const matchRoute =
       founds.length > 1 ? founds.find((r) => r.path === currRoute) : founds[0];
 
+    console.log("breadcrumb", matchRoute?.meta?.breadcrumb);
+    console.log("name", matchRoute?.name);
+    console.log("path", matchRoute?.path);
+
     const name =
       matchRoute?.meta?.breadcrumb ||
       matchRoute?.name ||

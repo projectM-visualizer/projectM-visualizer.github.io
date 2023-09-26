@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     buildAssetsDir: "assets",
     rootId: "app",
   },
+  css: ["~/assets/css/tailwind.css"],
   debug: process.env.NODE_ENV === "development",
   experimental: {
     payloadExtraction: false,
@@ -36,7 +37,7 @@ export default defineNuxtConfig({
     public: {},
   },
   sourcemap: false,
-  ssr: true,
+  ssr: process.env.NODE_ENV === "development" ? false : true,
 
   // Modules
   devtools: { enabled: process.env.NODE_ENV === "development" },
@@ -80,5 +81,6 @@ export default defineNuxtConfig({
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     injectPosition: "last",
+    viewer: false,
   },
 });

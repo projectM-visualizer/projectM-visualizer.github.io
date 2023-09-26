@@ -33,7 +33,6 @@ jobs:
       - name: generate
         run: |
           npm run repos:integrate
-          ls -R
           npm run generate
 
       - name: deploy-with-gh-pages

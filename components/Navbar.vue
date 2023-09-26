@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar px-4 rounded-3xl shadow-md bg-base-200">
+  <div class="navbar px-4 md:px-6 lg:px-8 shadow-md bg-base-200">
     <div class="navbar-start">
       <NavbarMobileMenu :icon="mobileMenu.icon" :menu="mobileMenu.menu" />
       <Logo />

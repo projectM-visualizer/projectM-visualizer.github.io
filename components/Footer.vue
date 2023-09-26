@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="footer flex items-center justify-center sm:justify-between p-4 bg-base-200 text-neutral-content rounded-3xl shadow-md"
+    class="footer flex items-center justify-center sm:justify-between px-4 md:px-6 lg:px-8 py-4 bg-base-200 text-neutral-content"
   >
     <aside class="items-center grid-flow-col">
       <p>
