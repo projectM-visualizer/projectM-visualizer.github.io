@@ -36,4 +36,14 @@ useHead({
   ],
   noscript: [{ innerHTML: "This website requires JavaScript." }],
 });
+
+useServerSeoMeta({
+  title: "ProjectM- Cross-platform Music Visualization Library",
+  description: "Cross-platform Music Visualization Library",
+  ogTitle: "ProjectM",
+  ogDescription: "Cross-platform Music Visualization Library",
+  ogSiteName: "ProjectM",
+  ogImage:
+    "https://github.com/projectM-visualizer/projectm/raw/master/web/projectM%20screenshots/Screen%20Shot%202014-07-18%20at%202.14.41%20PM.png",
+});
 </script>
