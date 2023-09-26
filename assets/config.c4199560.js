@@ -1,1 +1,0 @@
-import{Z as p,$ as i,a0 as o,B as a}from"./entry.e27e9305.js";const e=p({app:{name:"projectm-visualizer-organization-app",version:"0.0.1",description:"",url:""}}),t={nuxt:{}},s=i(e,t);function r(){const n=a();return n._appConfig||(n._appConfig=o(s)),n._appConfig}export{r as u};
