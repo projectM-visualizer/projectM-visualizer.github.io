@@ -49,7 +49,7 @@ const menu = [
   },
   {
     name: "About Us",
-    path: "/about-us",
+    path: "/about",
   },
   {
     name: "Contact",

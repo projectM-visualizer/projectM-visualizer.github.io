@@ -6,8 +6,4 @@
 useHead({
   title: "About Us",
 });
-
-definePageMeta({
-  path: "/about-us",
-});
 </script>

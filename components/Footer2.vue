@@ -42,7 +42,7 @@ const footer = {
     links: [
       {
         label: "About Us",
-        link: "/about-us",
+        link: "/about",
       },
       {
         label: "Contact",

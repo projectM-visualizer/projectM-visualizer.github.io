@@ -12,6 +12,17 @@ const repositoryDir = "./.repositories";
 // Create Octokit instance
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
+// Create directory if doesnt exist.
+async function createDirectory(dirPath: string, rm: boolean = false) {
+  if (existsSync(dirPath) && rm) {
+    await fs.rm(dirPath, { recursive: true });
+  }
+
+  await fs.mkdir(dirPath, { recursive: true });
+}
+
+await createDirectory(repositoryDir);
+
 // Get all github organization repos with gh-pages branch and published
 async function getPublishedRepos() {
   const repos = await octokit.rest.repos.listForOrg({
@@ -76,19 +87,8 @@ async function getPublishedRepos() {
 
 console.log("Published Repos: ", await getPublishedRepos());
 
-// Create directory if doesnt exist.
-async function createDirectory(dirPath: string, rm: boolean = false) {
-  if (existsSync(dirPath) && rm) {
-    await fs.rm(dirPath, { recursive: true });
-  }
-
-  await fs.mkdir(dirPath, { recursive: true });
-}
-
 // Download repos/docs to ./.repositories/{repo-name}
 async function downloadRepos() {
-  await createDirectory(repositoryDir);
-
   const repos = await getPublishedRepos();
 
   await Promise.all(
@@ -136,7 +136,7 @@ async function downloadRepos() {
   );
 }
 
-downloadRepos();
+await downloadRepos();
 
 // Move directory recursively
 async function moveDirectory(source: string, target: string) {
@@ -168,35 +168,48 @@ async function integrateRepos() {
 
     // Iterate through each repository
     for (const repo of repos) {
+      const targetGeneratedDir = path.join(".", "generated", repo);
       const targetContentDir = path.join(".", "content", repo);
       const targetPagesDir = path.join(".", "pages", repo);
 
+      await createDirectory(targetGeneratedDir, true);
       await createDirectory(targetContentDir, true);
       await createDirectory(targetPagesDir, true);
 
+      const generatedSource = path.join(sourceDir, repo, "generated");
       const contentSource = path.join(sourceDir, repo, "content");
       const pagesSource = path.join(sourceDir, repo, "pages");
 
+      // Move generated directory
+      if (existsSync(generatedSource)) {
+        await moveDirectory(generatedSource, targetGeneratedDir);
+      }
+
       // Move content directory
-      if (await existsSync(contentSource)) {
+      if (existsSync(contentSource)) {
         await moveDirectory(contentSource, targetContentDir);
       }
 
       // Move pages directory
-      if (await existsSync(pagesSource)) {
+      if (existsSync(pagesSource)) {
         await moveDirectory(pagesSource, targetPagesDir);
       }
 
       // Create .gitignore file in content directory, and write the repo name to it
+      const generatedGitignorePath = path.join(".", "generated", ".gitignore");
+      await fs.writeFile(generatedGitignorePath, repo);
+
       const contentGitignorePath = path.join(".", "content", ".gitignore");
       await fs.writeFile(contentGitignorePath, repo);
 
       const pagesGitignorePath = path.join(".", "pages", ".gitignore");
       await fs.writeFile(pagesGitignorePath, repo);
+
+      console.log(`Repository "${repo}" integrated`);
     }
   } catch (error) {
     console.error(`Error integrating repositories: ${error}`);
   }
 }
 
-integrateRepos();
+await integrateRepos();
