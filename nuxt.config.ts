@@ -37,7 +37,7 @@ export default defineNuxtConfig({
     public: {},
   },
   sourcemap: false,
-  ssr: process.env.NODE_ENV === "development" ? false : true,
+  ssr: process.env.NODE_ENV !== "development",
 
   // Modules
   devtools: { enabled: process.env.NODE_ENV === "development" },

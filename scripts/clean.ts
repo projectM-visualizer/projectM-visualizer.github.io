@@ -8,6 +8,14 @@ const directories: string[] = [
   "node_modules/.cache",
   "node_modules/.vite",
   // ".repositories",
+  "content/projects",
+  "generated",
+  "pages/projects/projectm",
+];
+
+const files: string[] = [
+  "pages/projects/.gitignore",
+  "content/projects/.gitignore",
 ];
 
 // Clean directories
@@ -18,16 +26,27 @@ async function cleanDirectories() {
       console.log(`Cleaning ${dir} directory...`);
     }
   }
+
+  for (const file of files) {
+    if (existsSync(file)) {
+      await fs.rm(file);
+      console.log(`Cleaning ${file} file...`);
+    }
+  }
 }
 
-cleanDirectories();
+async function main() {
+  await cleanDirectories();
 
-// Run npm install
-exec("npm install", (err, stdout, stderr) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+  // Run npm install
+  exec("npm install", (err, stdout, _stderr) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
 
-  console.log(stdout);
-});
+    console.log(stdout);
+  });
+}
+
+main();
