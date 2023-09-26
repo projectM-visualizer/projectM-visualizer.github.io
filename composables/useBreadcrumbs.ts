@@ -2,28 +2,11 @@ const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const isMathPatternPath = (pathA: string, pathB: string) => {
-  const partsA = pathA.split("/");
-  const partsB = pathB.split("/");
-
-  if (partsA.length !== partsB.length) return false;
-
-  const isMatch = partsA.every((part: string, i: number) => {
-    return part === partsB[i] || part.startsWith(":");
-  });
-
-  return isMatch;
-};
-
 export const useBreadcrumbs = () => {
-  const router = useRouter();
   const route = useRoute();
-  const routes = router.getRoutes();
 
   const HOMEPAGE = { name: "Home", path: "/" };
-  const breadcrumbs: Ref<Array<{ name: string; path: string }>> = ref([
-    HOMEPAGE,
-  ]);
+  const breadcrumbs = ref([HOMEPAGE]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function getBreadcrumbs(currRoute: string): any[] {
@@ -33,26 +16,14 @@ export const useBreadcrumbs = () => {
       currRoute.slice(0, currRoute.lastIndexOf("/")),
     );
 
-    const founds = routes.filter((r) => isMathPatternPath(r.path, currRoute));
-
-    const matchRoute =
-      founds.length > 1 ? founds.find((r) => r.path === currRoute) : founds[0];
-
-    console.log("breadcrumb", matchRoute?.meta?.breadcrumb);
-    console.log("name", matchRoute?.name);
-    console.log("path", matchRoute?.path);
-
-    const name =
-      matchRoute?.meta?.breadcrumb ||
-      matchRoute?.name ||
-      matchRoute?.path ||
-      currRoute;
+    const pathSplits = currRoute.split("/");
+    const name = capitalizeFirstLetter(pathSplits[pathSplits.length - 1]);
 
     return [
       ...paths,
       {
         path: currRoute,
-        name: capitalizeFirstLetter(name as string),
+        name,
       },
     ];
   }
