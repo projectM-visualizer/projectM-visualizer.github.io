@@ -1,11 +1,11 @@
 <template>
   <div
-    class="min-h-screen w-full flex flex-col items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4"
+    class="min-h-screen w-full flex flex-col items-center"
   >
     <Navbar />
 
     <div
-      class="flex flex-grow self-stretch rounded-3xl shadow-md bg-gray-300 overflow-hidden"
+      class="flex flex-grow self-stretch bg-gray-300 overflow-hidden"
     >
       <slot />
     </div>
