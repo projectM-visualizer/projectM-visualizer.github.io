@@ -6,6 +6,7 @@ const directories: string[] = [
   ".output",
   "node_modules/.cache",
   "node_modules/.vite",
+  ".repositories",
 ];
 
 rimraf(directories, {});

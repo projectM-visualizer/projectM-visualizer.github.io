@@ -6,13 +6,13 @@ import { Octokit } from "octokit";
 
 dotenv.config();
 
-const organization = "projectM-visualizer";
+const organization = "anomievision";
 const repositoryDir = "./.repositories";
 
 // Create Octokit instance
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-// Get all github organization repos with docs branch and published
+// Get all github organization repos with gh-pages branch and published
 async function getPublishedRepos() {
   const repos = await octokit.rest.repos.listForOrg({
     org: organization,
@@ -26,17 +26,17 @@ async function getPublishedRepos() {
       });
 
       const hasGHPagesBranch = branches.data.some(
-        (branch) => branch.name === "docs",
+        (branch) => branch.name === "gh-pages",
       );
 
       if (!hasGHPagesBranch || repo.archived) {
-        return null; // Skip if no docs branch or archived
+        return null; // Skip if no gh-pages branch or archived
       }
 
       const tree = await octokit.rest.git.getTree({
         owner: organization,
         repo: repo.name,
-        tree_sha: "docs",
+        tree_sha: "gh-pages",
         recursive: "true",
       });
 
@@ -87,6 +87,8 @@ async function createDirectory(dirPath: string, rm: boolean = false) {
 
 // Download repos/docs to ./.repositories/{repo-name}
 async function downloadRepos() {
+  await createDirectory(repositoryDir);
+
   const repos = await getPublishedRepos();
 
   await Promise.all(
@@ -97,14 +99,14 @@ async function downloadRepos() {
       const { data } = await octokit.rest.repos.downloadZipballArchive({
         owner: organization,
         repo: repo!.name,
-        ref: "docs",
+        ref: "gh-pages",
         archive_format: "zipball",
         headers: {
           Accept: "application/vnd.github.v3.raw",
         },
       });
 
-      const zipballPath = path.join(targetDir, "docs.zip");
+      const zipballPath = path.join(targetDir, "gh-pages.zip");
       const bufferData = Buffer.from(data as string);
       await fs.writeFile(zipballPath, bufferData);
 
@@ -156,7 +158,7 @@ async function moveDirectory(source: string, target: string) {
   }
 }
 
-// Integrate repos/docs into content and pages directories
+// Integrate repos/gh-pages into content and pages directories
 async function integrateRepos() {
   const sourceDir = path.join(".", ".repositories");
 

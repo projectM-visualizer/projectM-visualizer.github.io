@@ -2,17 +2,19 @@ name: build-website
 
 on:
   push:
-      branches: 
-        - "*"
-      tags:
-        - "v*"
-    
+    branches:
+      - "*"
+    tags:
+      - "v*"
+  repository_dispatch:
+    types: [doit]
+
   pull_request:
-      branches: 
-        - "*"
+    branches:
+      - "*"
 
 jobs:
-  build-static:
+  build:
     name: build-static-website
     runs-on: ubuntu-latest
 
@@ -25,30 +27,13 @@ jobs:
         with:
           node-version: 18
 
-      - name: install-pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-          run_install: false
-
-      - name: get-pnpm-store-directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: setup-pnpm-cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-      
       - name: install-dependencies
-        run: pnpm install
+        run: npm install
 
       - name: generate
-        run: pnpm run generate
+        run: |
+          npm run repos:integrate
+          npm run generate
 
       - name: deploy-with-gh-pages
         uses: peaceiris/actions-gh-pages@v3
